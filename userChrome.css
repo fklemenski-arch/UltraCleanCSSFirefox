@@ -1,0 +1,270 @@
+/* ============================================================
+   userChrome.css — Firefox Dark Mode Skin
+   Matches the clean, minimal Firefox look from screenshot
+   Place in: <profile folder>/chrome/userChrome.css
+   Requires: toolkit.legacyUserProfileCustomizations.stylesheets = true
+   ============================================================ */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* ── Variables ─────────────────────────────────────────────── */
+:root {
+  --bg-base:        #1c1b1f;
+  --bg-toolbar:     #28272c;
+  --bg-tab-active:  #2e2d32;
+  --bg-tab-hover:   #35343a;
+  --bg-urlbar:      #3a3940;
+  --border-subtle:  rgba(255,255,255,0.07);
+  --text-primary:   #e4e2e8;
+  --text-secondary: #9e9ba8;
+  --accent:         #c2b4f0;       /* soft lavender — Firefox-ish */
+  --radius-tab:     8px;
+  --radius-bar:     8px;
+}
+
+/* ── Window / Titlebar ─────────────────────────────────────── */
+:root, #main-window {
+  background-color: var(--bg-base) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ── Tab Bar ───────────────────────────────────────────────── */
+#TabsToolbar {
+  background-color: var(--bg-base) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  padding: 4px 4px 0 !important;
+}
+
+/* Individual tabs */
+.tabbrowser-tab .tab-background {
+  border-radius: var(--radius-tab) var(--radius-tab) 0 0 !important;
+  border: none !important;
+  margin-inline: 2px !important;
+}
+
+.tabbrowser-tab:not([selected]) .tab-background {
+  background: transparent !important;
+}
+
+.tabbrowser-tab:not([selected]):hover .tab-background {
+  background: var(--bg-tab-hover) !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background: var(--bg-tab-active) !important;
+  box-shadow: none !important;
+}
+
+/* Tab label */
+.tab-label {
+  color: var(--text-primary) !important;
+  font-size: 13px !important;
+}
+
+.tabbrowser-tab:not([selected]) .tab-label {
+  color: var(--text-secondary) !important;
+}
+
+/* Tab favicon */
+.tab-icon-image {
+  border-radius: 3px !important;
+}
+
+/* New tab button */
+#tabs-newtab-button,
+.tabs-newtab-button {
+  color: var(--text-secondary) !important;
+  border-radius: 6px !important;
+}
+#tabs-newtab-button:hover,
+.tabs-newtab-button:hover {
+  background: var(--bg-tab-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Close tab button */
+.tab-close-button {
+  color: var(--text-secondary) !important;
+  border-radius: 4px !important;
+}
+.tab-close-button:hover {
+  background: rgba(255,255,255,0.1) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ── Navigation Toolbar ────────────────────────────────────── */
+#nav-bar {
+  background-color: var(--bg-toolbar) !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  box-shadow: none !important;
+  padding: 6px 8px !important;
+}
+
+/* ── URL Bar ───────────────────────────────────────────────── */
+#urlbar {
+  background: var(--bg-urlbar) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-bar) !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease !important;
+}
+
+#urlbar[focused] {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px rgba(194,180,240,0.15) !important;
+}
+
+#urlbar-background {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* URL bar text */
+#urlbar-input {
+  color: var(--text-primary) !important;
+  font-size: 14px !important;
+}
+
+/* Placeholder */
+#urlbar-input::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* Search icon inside urlbar */
+#identity-box,
+#tracking-protection-icon-container {
+  color: var(--text-secondary) !important;
+}
+
+/* ── Toolbar Buttons (back, forward, reload, etc.) ─────────── */
+#nav-bar toolbarbutton,
+#nav-bar .toolbarbutton-1 {
+  color: var(--text-secondary) !important;
+  border-radius: 6px !important;
+  transition: background 0.12s ease, color 0.12s ease !important;
+}
+
+#nav-bar toolbarbutton:hover,
+#nav-bar .toolbarbutton-1:hover {
+  background: var(--bg-tab-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Disabled buttons stay muted */
+#nav-bar toolbarbutton[disabled="true"] {
+  opacity: 0.3 !important;
+}
+
+/* ── Extensions / Overflow Area ────────────────────────────── */
+#nav-bar .toolbaritem-combined-buttons,
+#unified-extensions-button {
+  color: var(--text-secondary) !important;
+}
+
+/* ── Hide sidebar toggle button (red circle top-left) ──────── */
+#sidebar-button {
+  display: none !important;
+}
+
+/* ── Bookmarks toolbar — blend into background (blue circle) ── */
+#PersonalToolbar,
+#bookmarks-toolbar-button {
+  background-color: var(--bg-base) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+#PersonalToolbar toolbarbutton,
+#PersonalToolbar .bookmark-item {
+  color: var(--text-secondary) !important;
+}
+
+/* ── Hide new tab customize/edit pen button (red circle bottom-right) ── */
+/* Primary fix is in userContent.css; these are chrome-level fallbacks */
+#newtab-customize-button,
+.newtab-customize-button,
+.personalize-button,
+[class*="CustomizeButton"],
+[class*="customize-button"],
+[id*="customize"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* ── URL Bar Dropdown / Autocomplete popup ─────────────────── */
+#PopupAutoCompleteRichResult,
+.autocomplete-richlistbox {
+  background: var(--bg-toolbar) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+  padding: 4px !important;
+}
+
+.autocomplete-richlistitem {
+  border-radius: 6px !important;
+  color: var(--text-primary) !important;
+}
+
+.autocomplete-richlistitem:hover,
+.autocomplete-richlistitem[selected] {
+  background: var(--bg-tab-hover) !important;
+}
+
+.ac-title, .ac-url {
+  color: var(--text-primary) !important;
+}
+.ac-url {
+  color: var(--text-secondary) !important;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+#sidebar-box {
+  background: var(--bg-base) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ── Status Bar ────────────────────────────────────────────── */
+#statuspanel-label {
+  background: var(--bg-toolbar) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+}
+
+/* ── Scrollbars ────────────────────────────────────────────── */
+scrollbar {
+  width: 8px !important;
+  background: transparent !important;
+}
+scrollbar thumb {
+  background: rgba(255,255,255,0.15) !important;
+  border-radius: 4px !important;
+}
+scrollbar thumb:hover {
+  background: rgba(255,255,255,0.25) !important;
+}
+
+/* ── Context Menus ─────────────────────────────────────────── */
+menupopup,
+panel {
+  background: var(--bg-toolbar) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+  padding: 4px !important;
+}
+
+menuitem, menu {
+  color: var(--text-primary) !important;
+  border-radius: 6px !important;
+}
+menuitem:hover, menu:hover {
+  background: var(--bg-tab-hover) !important;
+  color: var(--text-primary) !important;
+}
+menuseparator {
+  border-color: var(--border-subtle) !important;
+}
